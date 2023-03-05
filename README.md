@@ -1,0 +1,2 @@
+# CloudCoinManagerPortable
+CloudCoin Manager Portable
