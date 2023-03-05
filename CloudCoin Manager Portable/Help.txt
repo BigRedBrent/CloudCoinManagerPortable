@@ -1,0 +1,17 @@
+
+CloudCoin Manager Portable uses a command line argument that is built into the CloudCoin Manager, to store the settings and coin files in the same folder as this program.
+
+This script only works with the windows version of CloudCoin Manager.
+
+Download the latest version of the CloudCoin Manager from here:
+https://cloudcoin.global/wallet
+
+This manager will attempt to find existing CloudCoin Manager files, and copy them into this portable folder if they do not already exist.
+
+If the CloudCoin Manager is copied to this folder, it will be found in the "CloudCoin Manager" folder.
+To update to a newer installed version, simply delete this "CloudCoin Manager" folder and run this again,
+or select no when prompted to copy the CloudCoin Manager, to use the locally installed version instead.
+
+You may find the settings and coin files in the "Settings\cloudcoin_manager" folder.
+
+After the CloudCoin Manager is installed, run: Start CloudCoin Manager Portable.cmd

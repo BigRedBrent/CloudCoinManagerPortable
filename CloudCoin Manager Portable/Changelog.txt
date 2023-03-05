@@ -1,0 +1,33 @@
+Release Notes: CloudCoin Manager Portable
+=============
+
+2.2.2
+- File copy verification will now show the current folder that is being processed
+
+2.2.1
+- Increased speed of file copy verification if a difference is found
+
+2.2
+- Significantly increased speed of file copy verification
+
+2.1.3
+- Renamed script files
+
+2.1.2
+- Edited copy.cmd
+
+2.1.1
+- No longer deletes start script if renamed
+
+2.1
+- Replaced FastCopy with XCOPY and file compare
+
+2.0
+- Removed Sandboxie-Plus dependency
+
+1.36.2
+- Replaced the file process_wait.cmd with process_wait.vbs
+
+1.36.1
+- Started logging changes
+- Updated the Help.txt file
