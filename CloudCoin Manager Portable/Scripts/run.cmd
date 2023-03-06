@@ -4,7 +4,10 @@ IF "%~1" == "" EXIT
 CLS
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir%" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_client_name_ext=%~nx1
-TASKLIST /FI "imagename eq %CLOUDCOINMANAGERPORTABLE_client_name_ext%" | FIND "%CLOUDCOINMANAGERPORTABLE_client_name_ext%" > NUL && (START error.cmd "CloudCoin Manager is already running!" "4" & EXIT)
+TASKLIST /FI "imagename eq %CLOUDCOINMANAGERPORTABLE_client_name_ext%" | FIND "%CLOUDCOINMANAGERPORTABLE_client_name_ext%" > NUL && CALL error.cmd "CloudCoin Manager is already running!" "4"
+CALL version.cmd
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
+CLS
 
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\cloudcoin_manager" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\cloudcoin_manager" (
     IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager"
@@ -25,15 +28,16 @@ FOR %%f IN (%*) DO IF EXIST "%%~f" (
     SET CLOUDCOINMANAGERPORTABLE_manager_dir=%%~dpf
     GOTO manager_found
 )
-START /WAIT error.cmd "CloudCoin Manager not installed!"
-EXIT
+CALL error.cmd "CloudCoin Manager not installed!"
 :manager_found
 SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%~dp1
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" GOTO no_copy_manager
 IF "%CLOUDCOINMANAGERPORTABLE_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_manager_dir=%CLOUDCOINMANAGERPORTABLE_manager_dir:~0,-1%
 IF "%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~0,-1%
-START /WAIT copy.cmd "%CLOUDCOINMANAGERPORTABLE_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" "Copy CloudCoin Manager to portable folder [Y/N]?" "Copying manager files..." "Verifying copied manager files..." "Failed to copy manager files!"
+CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" "Copy CloudCoin Manager to portable folder [Y/N]?" "Copying manager files..." "Verifying copied manager files..." "Failed to copy manager files!"
 IF %ERRORLEVEL% EQU 1 EXIT
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
+CLS
 :no_copy_manager
 
 SET CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir=%USERPROFILE%\cloudcoin_manager
@@ -41,8 +45,10 @@ SET CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_home_dir=%CLOUDCOINMANAG
 SET CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir=%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_home_dir%\cloudcoin_manager
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" GOTO copy_settings_exist
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%" GOTO no_copy_settings
-START /WAIT copy.cmd "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" "Copy detected CloudCoin settings and coins to portable folder [Y/N]?" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
+CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" "Copy detected CloudCoin settings and coins to portable folder [Y/N]?" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
 SET CLOUDCOINMANAGERPORTABLE_copy_error=%ERRORLEVEL%
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
+CLS
 IF %CLOUDCOINMANAGERPORTABLE_copy_error% EQU 2 GOTO no_copy_settings
 IF %CLOUDCOINMANAGERPORTABLE_copy_error% NEQ 0 EXIT
 :copy_settings_exist
@@ -51,8 +57,10 @@ SET CLOUDCOINMANAGERPORTABLE_appdata_settings_dir=%APPDATA%\%CLOUDCOINMANAGERPOR
 SET CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming\%CLOUDCOINMANAGERPORTABLE_client_name_ext%
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" GOTO no_copy_settings
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%" GOTO no_copy_settings
-START /WAIT copy.cmd "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" "yes" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
+CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" "yes" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
 IF %ERRORLEVEL% NEQ 0 EXIT
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
+CLS
 :no_copy_settings
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" || EXIT
 

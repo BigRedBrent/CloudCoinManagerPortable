@@ -1,5 +1,5 @@
 @ECHO OFF
-TITLE CloudCoin Manager Portable - copy
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version% - Copy
 IF "%~1" == "" EXIT 1
 CLS
 
@@ -46,24 +46,24 @@ FOR /F "TOKENS=*" %%G IN ('DIR /B /A:D /S "%~1\*"') DO >NUL 2>NUL DIR /B /A:-D "
 IF DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug PAUSE
 REN "%~2.tmp" "%~nx2" >NUL || GOTO copy_failed
 CLS
-EXIT 0
+EXIT /B 0
 
 :copy_no_choice
 CLS
 IF NOT EXIST "%~2" MKDIR "%~2"
-EXIT 2
+EXIT /B 2
 
 :copy_failed
 ECHO. & ECHO. & ECHO. & ECHO %~6 & ECHO.
 IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug RMDIR /S /Q "%~2.tmp" >NUL 2>&1
 PAUSE
-EXIT 1
+EXIT /B 1
 
 :copy_verify
 SET CLOUDCOINMANAGERPORTABLE_copy_relative_path=%~1
 CALL SET CLOUDCOINMANAGERPORTABLE_copy_relative_path=%%CLOUDCOINMANAGERPORTABLE_copy_relative_path:~%CLOUDCOINMANAGERPORTABLE_copy_string_length%%%
 IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug CLS & ECHO. & ECHO %CLOUDCOINMANAGERPORTABLE_copy_verify_msg%
-ECHO "%CLOUDCOINMANAGERPORTABLE_copy_relative_path_home%%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3"
+ECHO. & ECHO "%CLOUDCOINMANAGERPORTABLE_copy_relative_path_home%%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3"
 FC /B "%~1\%~3" "%~2.tmp%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3" >NUL 2>&1 && EXIT /B 0
 IF %ERRORLEVEL% EQU 1 EXIT /B 1
 IF NOT "%~3" == "*" EXIT /B 1

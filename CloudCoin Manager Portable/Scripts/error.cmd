@@ -1,5 +1,5 @@
 @ECHO OFF
-TITLE CloudCoin Manager Portable - error
+TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version% - Error
 IF "%~1" == "" EXIT
 CLS
 ECHO.
