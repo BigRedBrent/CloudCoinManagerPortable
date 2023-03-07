@@ -1,4 +1,11 @@
+CALL :lock
+EXIT /B
+:lock
+CALL :main 9>>"%~f0"
+EXIT /B
+:main
 @ECHO OFF
+CLS
 ECHO. & ECHO 3 & ECHO. & PAUSE & CLS & ECHO. & ECHO 2 & ECHO. & PAUSE & CLS & ECHO. & ECHO 1 & ECHO. & PAUSE & CLS
 CD /D "%~dp0"
 DEL "%CD%\version.tmp" >NUL 2>&1

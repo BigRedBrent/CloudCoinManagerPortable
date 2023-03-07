@@ -5,7 +5,7 @@ CLS
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir%" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_client_name_ext=%~nx1
 TASKLIST /FI "imagename eq %CLOUDCOINMANAGERPORTABLE_client_name_ext%" | FIND "%CLOUDCOINMANAGERPORTABLE_client_name_ext%" > NUL && CALL error.cmd "CloudCoin Manager is already running!" "4"
-CALL version.cmd
+CALL version.cmd "1"
 TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
 CLS
 
