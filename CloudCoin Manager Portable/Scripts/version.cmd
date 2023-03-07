@@ -58,7 +58,7 @@ ECHO. & ECHO Script update available: CloudCoin Manager Portable %CLOUDCOINMANAG
 CHOICE /C 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ /M "Download and update [Y/N]?" /N
 IF %ERRORLEVEL% == 24 GOTO version_done
 IF NOT %ERRORLEVEL% == 35 GOTO version_redo_choice
-COPY /Y update.cmd update.tmp.cmd || GOTO version_done
+COPY /V /Y update.cmd update.tmp.cmd || GOTO version_done
 START "" update.tmp.cmd "1" & EXIT
 
 :version_done
