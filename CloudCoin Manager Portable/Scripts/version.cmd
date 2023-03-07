@@ -1,19 +1,30 @@
 @ECHO OFF
-TITLE CloudCoin Manager Portable - Checking Version
+TITLE %CLOUDCOINMANAGERPORTABLE_name% - Checking Version
 IF "%~1" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_version=
 SET CLOUDCOINMANAGERPORTABLE_new_version=
 CD /D "%~dp0"
 CALL :version_done
+IF EXIST "version.txt" (
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" (
+        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
+        MOVE /Y "%CD%\version.txt" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\" > NUL 2>&1 || GOTO version_done
+        SET CLOUDCOINMANAGERPORTABLE_version_skip_choice=1
+    )
+    DEL /Q "version.txt" > NUL 2>&1
+)
 
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" GOTO version_done
+CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
 IF EXIST "version.txt" FOR /F "tokens=* delims=" %%G in (version.txt) DO IF NOT "%%~G" == "" CALL :set_current_version "%%~G" & GOTO skip_current_version
 GOTO skip_current_version
 :set_current_version
 SET CLOUDCOINMANAGERPORTABLE_version=%~1
 EXIT /B
 :skip_current_version
+CD /D "%~dp0"
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "" GOTO version_done
-TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
 
 ECHO. & ECHO Checking for update...
 FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :version_remove_job "%%G"
@@ -52,13 +63,15 @@ IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_versio
     GOTO version_done
 )
 
-TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 :version_redo_choice
 CLS
-ECHO. & ECHO Update available: CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_new_version% & ECHO.
+IF DEFINED CLOUDCOINMANAGERPORTABLE_version_skip_choice GOTO version_skip_choice
+ECHO. & ECHO Update available: %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% & ECHO.
 CHOICE /C 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ /M "Download and update [Y/N]?" /N
 IF %ERRORLEVEL% == 24 GOTO version_done
 IF NOT %ERRORLEVEL% == 35 GOTO version_redo_choice
+:version_skip_choice
 COPY /V /Y update.cmd update.tmp.cmd || GOTO version_done
 START "" update.tmp.cmd "1" & EXIT
 

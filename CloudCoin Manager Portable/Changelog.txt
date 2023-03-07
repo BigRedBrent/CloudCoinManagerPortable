@@ -1,6 +1,11 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.4
+- Removed file lock
+- Looks for already running process
+- Moved version.txt to Settings folder
+
 2.3.2
 - Added a file lock to the start script when running
 

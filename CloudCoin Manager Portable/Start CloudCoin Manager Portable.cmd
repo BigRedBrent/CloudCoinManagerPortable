@@ -1,11 +1,6 @@
-CALL :lock
-EXIT /B
-:lock
-CALL :main 9>>"%~f0"
-EXIT /B
-:main
 @ECHO OFF
-CLS
+SET CLOUDCOINMANAGERPORTABLE_name=CloudCoin Manager Portable
+TASKLIST /FI "imagename eq cmd.exe" /FO list /V | FIND "%CLOUDCOINMANAGERPORTABLE_name%" > NUL && EXIT
 SET CLOUDCOINMANAGERPORTABLE_home_dir=%~dp0
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir:~0,2%" == "\\" ECHO. & ECHO. & ECHO     Unable to run CloudCoin Manager Portable from a network share! & ECHO. & ECHO. & PAUSE & EXIT
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_home_dir=%CLOUDCOINMANAGERPORTABLE_home_dir:~0,-1%
