@@ -2,9 +2,7 @@
 TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 IF "%~1" == "" EXIT
 CD /D "%~dp0"
-DEL /Q "*.tmp" > NUL 2>&1
-DEL /A:H /Q "*.tmp" > NUL 2>&1
-DEL /Q "*.zip" > NUL 2>&1
+CALL :update_clear
 
 ECHO. & ECHO Downloading update...
 FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :update_remove_job "%%G"
@@ -30,7 +28,6 @@ CLS
 IF NOT EXIST "CloudCoinManagerPortable.zip" GOTO update_failed
 
 ECHO. & ECHO Extracting update...
-RMDIR /S /Q "CloudCoin Manager Portable" > NUL 2>&1
 7za.exe e CloudCoinManagerPortable.zip -spf > NUL 2>&1 || GOTO update_failed
 IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_home_dir FOR %%G IN (..) DO SET CLOUDCOINMANAGERPORTABLE_home_dir=%%~fG
 MOVE /Y "%CD%\CloudCoin Manager Portable\Scripts\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\" > NUL 2>&1 || GOTO update_failed
@@ -41,11 +38,16 @@ GOTO update_exit
 ECHO.
 ECHO Update failed!
 ECHO.
-PAUSE
+CALL :update_clear
+DEL "update.tmp.cmd" & PAUSE & EXIT
 
 :update_exit
+CALL :update_clear
+DEL "update.tmp.cmd" & EXIT
+
+:update_clear
 RMDIR /S /Q "CloudCoin Manager Portable" > NUL 2>&1
 DEL /Q "*.tmp" > NUL 2>&1
 DEL /A:H /Q "*.tmp" > NUL 2>&1
 DEL /Q "*.zip" > NUL 2>&1
-DEL "update.tmp.cmd" & EXIT
+EXIT /B
