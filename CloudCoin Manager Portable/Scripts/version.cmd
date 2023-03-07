@@ -3,8 +3,7 @@ TITLE CloudCoin Manager Portable - Checking Version
 SET CLOUDCOINMANAGERPORTABLE_version=
 SET CLOUDCOINMANAGERPORTABLE_new_version=
 CD /D "%~dp0"
-DEL /Q "*.tmp" > NUL 2>&1
-DEL /A:H /Q "*.tmp" > NUL 2>&1
+CALL :version_done
 
 IF EXIST "version.txt" FOR /F "tokens=* delims=" %%G in (version.txt) DO IF NOT "%%~G" == "" CALL :set_current_version "%%~G" & GOTO skip_current_version
 GOTO skip_current_version
@@ -43,8 +42,7 @@ SET CLOUDCOINMANAGERPORTABLE_new_version=%~1
 EXIT /B
 :skip_version
 
-DEL /Q "*.tmp" > NUL 2>&1
-DEL /A:H /Q "*.tmp" > NUL 2>&1
+CALL :version_done
 
 IF "%CLOUDCOINMANAGERPORTABLE_new_version%" == "" GOTO version_done
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_version%" (
@@ -66,3 +64,4 @@ START "" update.tmp.cmd "1" & EXIT
 :version_done
 DEL /Q "*.tmp" > NUL 2>&1
 DEL /A:H /Q "*.tmp" > NUL 2>&1
+EXIT /B
