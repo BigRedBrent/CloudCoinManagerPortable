@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.3.1
+- Small change to update text
+
 2.3
 - Added script version checking and updating
 

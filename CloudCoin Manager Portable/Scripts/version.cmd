@@ -14,7 +14,7 @@ EXIT /B
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "" GOTO version_done
 TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
 
-ECHO. & ECHO Checking for script update...
+ECHO. & ECHO Checking for update...
 FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :version_remove_job "%%G"
 BITSADMIN /CANCEL "CLOUDCOINMANAGERPORTABLE_VERSION_BITFC3UEVPCG8BJNGFRU" > NUL 2>&1
 PING github.com -n 1 -w 5000 > NUL 2>&1 || GOTO version_done
@@ -54,7 +54,7 @@ IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_versio
 TITLE CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_version%
 :version_redo_choice
 CLS
-ECHO. & ECHO Script update available: CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_new_version% & ECHO.
+ECHO. & ECHO Update available: CloudCoin Manager Portable %CLOUDCOINMANAGERPORTABLE_new_version% & ECHO.
 CHOICE /C 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ /M "Download and update [Y/N]?" /N
 IF %ERRORLEVEL% == 24 GOTO version_done
 IF NOT %ERRORLEVEL% == 35 GOTO version_redo_choice
