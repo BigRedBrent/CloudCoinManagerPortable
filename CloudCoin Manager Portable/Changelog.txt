@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.3
+- Added script version checking and updating
+
 2.2.2
 - File copy verification will now show the current folder that is being processed
 

@@ -8,11 +8,13 @@ MOVE /Y "%CD%\version.tmp" "%CD%\version.txt" >NUL 2>&1 || GOTO build_fail
 "%CD%\CloudCoin Manager Portable\Scripts\7za.exe" a -tzip "%CD%\CloudCoinManagerPortable.tmp" "%CD%\CloudCoin Manager Portable\" -mx=9 || GOTO build_fail
 MOVE /Y "%CD%\CloudCoinManagerPortable.tmp" "%CD%\CloudCoinManagerPortable.zip" >NUL 2>&1 || GOTO build_fail
 ECHO.
+ECHO.
 ECHO Completed successfully.
 ECHO.
 PAUSE
 EXIT
 :build_fail
+ECHO.
 ECHO.
 ECHO Failed!
 ECHO.
