@@ -1,6 +1,6 @@
 @ECHO OFF
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
-IF "%~1" == "" EXIT
+IF "%~1" == "" EXIT /B 1
 ECHO.
 ECHO   CloudCoin Manager is closing...
 ECHO.

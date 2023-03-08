@@ -1,6 +1,6 @@
 @ECHO OFF
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
-IF "%~1" == "" EXIT
+IF "%~1" == "" EXIT /B 1
 CD /D "%~dp0"
 CALL :update_clear
 
