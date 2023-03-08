@@ -58,7 +58,7 @@ CALL :version_done
 IF "%CLOUDCOINMANAGERPORTABLE_new_version%" == "" GOTO version_done
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_version%" (
     IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
-    ECHO %DATE% %TIME% %CLOUDCOINMANAGERPORTABLE_version%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
+    ECHO %CLOUDCOINMANAGERPORTABLE_version% %DATE% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
     GOTO version_done
 )
 

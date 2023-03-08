@@ -33,7 +33,7 @@ MOVE /Y "%CD%\CloudCoin Manager Portable\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%
 FOR /F "TOKENS=*" %%G IN ('DIR /B /A:D "%CD%\CloudCoin Manager Portable\*"') DO CALL :update_subdirectories "%%~nG"
 CALL :update_clear
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
-ECHO %DATE% %TIME% %CLOUDCOINMANAGERPORTABLE_new_version%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
+ECHO %CLOUDCOINMANAGERPORTABLE_new_version% %DATE% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
 DEL "update.tmp.cmd" & EXIT
 :update_subdirectories
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\%~1" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\%~1" > NUL 2>&1 || GOTO update_failed

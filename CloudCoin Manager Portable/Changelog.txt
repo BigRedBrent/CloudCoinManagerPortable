@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.5.1
+- Changed text format for version.txt in Settings folder
+
 2.5
 - Will now only check for a new version once a day
 - Moved version.txt back to Scripts folder
