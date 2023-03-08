@@ -1,7 +1,4 @@
-
-SET CLOUDCOINMANAGERPORTABLE_version=2.5.2
-
-IF "%~1" == "" EXIT /B 1
+IF "%~1" == "" EXIT
 
 IF DEFINED CLOUDCOINMANAGERPORTABLE_no_version_check GOTO version_done
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" (

@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.5.3
+- Moved version number to variable inside start script
+
 2.5.2
 - Replaced version.txt with version.cmd in Scripts folder
 

@@ -1,4 +1,4 @@
-IF "%~1" == "" EXIT /B 1
+IF "%~1" == "" EXIT
 CLS
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir%" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_client_name_ext=%~nx1

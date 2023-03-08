@@ -10,7 +10,7 @@ ECHO. & ECHO 3 & ECHO. & PAUSE & CLS & ECHO. & ECHO 2 & ECHO. & PAUSE & CLS & EC
 CD /D "%~dp0"
 DEL "%CD%\version.tmp" >NUL 2>&1
 DEL "%CD%\CloudCoinManagerPortable.tmp" >NUL 2>&1
-CALL "%CD%\CloudCoin Manager Portable\Scripts\version.cmd"
+CALL "%CD%\CloudCoin Manager Portable\Start CloudCoin Manager Portable.cmd" "1"
 ECHO %CLOUDCOINMANAGERPORTABLE_version%> version.tmp
 FOR /F "tokens=* delims=" %%G in (version.tmp) DO IF NOT "%%~G" == "%CLOUDCOINMANAGERPORTABLE_version%" GOTO build_fail
 MOVE /Y "%CD%\version.tmp" "%CD%\version.txt" >NUL 2>&1 || GOTO build_fail
