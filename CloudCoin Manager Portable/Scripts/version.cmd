@@ -5,27 +5,26 @@ SET CLOUDCOINMANAGERPORTABLE_version=
 SET CLOUDCOINMANAGERPORTABLE_new_version=
 CD /D "%~dp0"
 CALL :version_done
-IF EXIST "version.txt" (
-    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" (
-        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
-        MOVE /Y "%CD%\version.txt" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\" > NUL 2>&1 || GOTO version_done
-        SET CLOUDCOINMANAGERPORTABLE_version_skip_choice=1
-    )
-    DEL /Q "version.txt" > NUL 2>&1
-)
 
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" GOTO version_done
-CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
+IF NOT EXIST "version.txt" GOTO version_redo_choice
 IF EXIST "version.txt" FOR /F "tokens=* delims=" %%G in (version.txt) DO IF NOT "%%~G" == "" CALL :set_current_version "%%~G" & GOTO skip_current_version
 GOTO skip_current_version
 :set_current_version
 SET CLOUDCOINMANAGERPORTABLE_version=%~1
 EXIT /B
 :skip_current_version
-CD /D "%~dp0"
-IF "%CLOUDCOINMANAGERPORTABLE_version%" == "" GOTO version_done
-TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
+IF DEFINED CLOUDCOINMANAGERPORTABLE_no_version_check GOTO version_done
 
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" (
+    FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt") DO SET CLOUDCOINMANAGERPORTABLE_file_time=%%~tG
+    SET CLOUDCOINMANAGERPORTABLE_file_time=%CLOUDCOINMANAGERPORTABLE_file_time:~0,10%
+    SET CLOUDCOINMANAGERPORTABLE_time=%DATE%
+    SET CLOUDCOINMANAGERPORTABLE_time=%CLOUDCOINMANAGERPORTABLE_time:~-10%
+    IF "%CLOUDCOINMANAGERPORTABLE_time%" == "%CLOUDCOINMANAGERPORTABLE_file_time%" GOTO version_done
+)
+
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
 ECHO. & ECHO Checking for update...
 FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :version_remove_job "%%G"
 BITSADMIN /CANCEL "CLOUDCOINMANAGERPORTABLE_UPDATE_BITFC3UEVPCG8BJNGFRU" > NUL 2>&1
@@ -58,20 +57,19 @@ CALL :version_done
 
 IF "%CLOUDCOINMANAGERPORTABLE_new_version%" == "" GOTO version_done
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_version%" (
-    ECHO. & ECHO. & ECHO You have the latest version.
-    ::FOR %%G IN ("3") DO TIMEOUT /T %%~G /NOBREAK> NUL 2>&1 || PING -n %%~G 127.0.0.1 > NUL 2>&1 || PING -n %%~G ::1 > NUL 2>&1 || PAUSE
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
+    ECHO %DATE% %TIME% %CLOUDCOINMANAGERPORTABLE_version%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
     GOTO version_done
 )
 
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 :version_redo_choice
+IF DEFINED CLOUDCOINMANAGERPORTABLE_no_version_check GOTO version_done
 CLS
-IF DEFINED CLOUDCOINMANAGERPORTABLE_version_skip_choice GOTO version_skip_choice
 ECHO. & ECHO Update available: %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% & ECHO.
 CHOICE /C 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ /M "Download and update [Y/N]?" /N
 IF %ERRORLEVEL% == 24 GOTO version_done
 IF NOT %ERRORLEVEL% == 35 GOTO version_redo_choice
-:version_skip_choice
 COPY /V /Y update.cmd update.tmp.cmd || GOTO version_done
 START "" update.tmp.cmd "1" & EXIT
 

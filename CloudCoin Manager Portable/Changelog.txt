@@ -1,6 +1,11 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.5
+- Will now only check for a new version once a day
+- Moved version.txt back to Scripts folder
+- Using version.txt in Settings folder to track last version check
+
 2.4
 - Removed file lock
 - Looks for already running process
