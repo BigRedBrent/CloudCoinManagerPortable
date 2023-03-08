@@ -7,8 +7,10 @@ EXIT /B
 @ECHO OFF
 CLS & ECHO. & ECHO 3 & ECHO. & PAUSE & CLS & ECHO. & ECHO 2 & ECHO. & PAUSE & CLS & ECHO. & ECHO 1 & ECHO. & PAUSE & CLS
 CD /D "%~dp0"
-DEL "version.tmp" >NUL 2>&1
-DEL "CloudCoinManagerPortable.tmp" >NUL 2>&1
+DEL "*.tmp" >NUL 2>&1
+COPY /Y "CloudCoin Manager Portable\Help.txt" "README.tmp" || GOTO build_fail
+FC /B "CloudCoin Manager Portable\Help.txt" "README.tmp" || GOTO build_fail
+MOVE /Y "README.tmp" "README.md" >NUL 2>&1 || GOTO build_fail
 CALL "CloudCoin Manager Portable\Start CloudCoin Manager Portable.cmd" "1"
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "" GOTO build_fail
 ECHO %CLOUDCOINMANAGERPORTABLE_version%> version.tmp
@@ -23,6 +25,5 @@ ECHO. & PAUSE & EXIT
 ECHO. & ECHO. & ECHO.
 ECHO Failed!
 ECHO.
-DEL "version.tmp" >NUL 2>&1
-DEL "CloudCoinManagerPortable.tmp" >NUL 2>&1
+DEL "*.tmp" >NUL 2>&1
 PAUSE & EXIT
