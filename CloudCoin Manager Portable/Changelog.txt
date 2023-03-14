@@ -1,11 +1,11 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
-2.6.1
+2.6.2
 - Edited description in changelog to be more specific
 
 2.6
-- Fixed update checking (delete the version.txt file in the Settings folder, to force an update check from an older version)
+- Fixed update checking (to force an update check from an older version, delete the version.txt file in the Settings folder)
 
 2.5.4
 - Added more information to the Help.txt file
