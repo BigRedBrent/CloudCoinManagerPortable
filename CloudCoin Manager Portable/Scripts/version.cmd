@@ -3,8 +3,7 @@ IF "%~1" == "" EXIT
 IF DEFINED CLOUDCOINMANAGERPORTABLE_no_version_check GOTO version_done
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" GOTO version_start
 FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt") DO SET CLOUDCOINMANAGERPORTABLE_file_date=%%~tG
-IF "%CLOUDCOINMANAGERPORTABLE_file_date:~0,10%" == "" GOTO version_start
-IF "%CLOUDCOINMANAGERPORTABLE_file_date:~0,10%" == "%DATE:~-10%" GOTO version_done
+IF "%CLOUDCOINMANAGERPORTABLE_file_date:~0,10%" == "%DATE:~-10%" IF NOT "%CLOUDCOINMANAGERPORTABLE_file_date:~0,10%" == "" GOTO version_done
 
 :version_start
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version% - Checking Version
