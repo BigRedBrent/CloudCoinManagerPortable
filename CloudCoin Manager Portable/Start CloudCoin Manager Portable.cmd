@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SET CLOUDCOINMANAGERPORTABLE_version=2.6.2
+SET CLOUDCOINMANAGERPORTABLE_version=2.7
 SET CLOUDCOINMANAGERPORTABLE_no_version_check=
 SET CLOUDCOINMANAGERPORTABLE_name=CloudCoin Manager Portable
 
@@ -13,7 +13,10 @@ IF "%CLOUDCOINMANAGERPORTABLE_home_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE
 SET CLOUDCOINMANAGERPORTABLE_manager1=%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\cloudcoin_manager\cloudcoin_manager.exe
 SET CLOUDCOINMANAGERPORTABLE_manager2=%ProgramFiles(x86)%\CloudCoin Consortium\CloudCoin Manager\cloudcoin_manager\cloudcoin_manager.exe
 SET CLOUDCOINMANAGERPORTABLE_manager3=%ProgramFiles%\CloudCoin Consortium\CloudCoin Manager\cloudcoin_manager\cloudcoin_manager.exe
-CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%"
-IF EXIST "custom.cmd" CALL "custom.cmd" "%~0"
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom_start.cmd" (
+    CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
+    CALL custom_start.cmd "%~0"
+)
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts"
 CALL run.cmd "%CLOUDCOINMANAGERPORTABLE_manager1%" "%CLOUDCOINMANAGERPORTABLE_manager2%" "%CLOUDCOINMANAGERPORTABLE_manager3%"
+EXIT

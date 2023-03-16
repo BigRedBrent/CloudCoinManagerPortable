@@ -62,9 +62,11 @@ CLS
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" || EXIT
 
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
-CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%"
-IF EXIST "custom_start.cmd" CALL "custom_start.cmd" "%~0"
-CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts"
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
+    CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
+    CALL custom.cmd "%~0"
+    CD /D "%~dp0"
+)
 
 START "" wait.vbs "%CLOUDCOINMANAGERPORTABLE_manager%" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
 EXIT

@@ -11,5 +11,8 @@ GOTO client_running_check
 :client_not_running
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\EBWebView\Default\Cache" >NUL 2>&1
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\EBWebView\GrShaderCache" >NUL 2>&1
-CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%"
-(IF EXIST "custom_end.cmd" CALL "custom_end.cmd" "%~0") & EXIT
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom_end.cmd" (
+    CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
+    CALL custom_end.cmd "%~0" & EXIT
+)
+EXIT
