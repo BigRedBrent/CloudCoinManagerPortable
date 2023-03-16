@@ -29,12 +29,13 @@ EXIT /B
 CLS
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoinManagerPortable.zip" GOTO update_failed
 
+ECHO. & ECHO Checking downloaded update...
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp"
-ECHO. & ECHO Testing downloaded update...
 "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\7za.exe" t CloudCoinManagerPortable.zip -r > NUL 2>&1 || GOTO update_failed
 CLS & ECHO. & ECHO Extracting update...
 "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\7za.exe" x CloudCoinManagerPortable.zip > NUL 2>&1 || GOTO update_failed
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\Scripts\update.cmd" GOTO update_failed
+
 COPY /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\Scripts\update.cmd" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1 || GOTO update_failed
 FC /B "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\Scripts\update.cmd" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1 || GOTO update_failed
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
@@ -56,6 +57,7 @@ CLS & ECHO. & ECHO Installing update...
 DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1 || GOTO update_failed
 DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\*" || GOTO update_failed
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
+
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1 || GOTO update_failed
 ECHO %CLOUDCOINMANAGERPORTABLE_new_version% %DATE:~-10% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version%
