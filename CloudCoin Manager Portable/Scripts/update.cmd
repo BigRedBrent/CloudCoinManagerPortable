@@ -45,7 +45,6 @@ CALL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager 
 SET CLOUDCOINMANAGERPORTABLE_new_version=%CLOUDCOINMANAGERPORTABLE_version%
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS & ECHO. & ECHO Installing update...
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts" > NUL 2>&1 || GOTO update_failed
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts" > NUL 2>&1 || GOTO update_failed
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\Scripts" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts"
