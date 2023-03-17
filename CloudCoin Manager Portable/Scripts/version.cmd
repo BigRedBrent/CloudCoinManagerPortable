@@ -2,7 +2,7 @@ IF "%~1" == "" EXIT
 
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" > NUL 2>&1 || GOTO version_done
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1 || GOTO version_done
-IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" GOTO version_done
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1 || GOTO version_done
 CALL :version_done
 IF DEFINED CLOUDCOINMANAGERPORTABLE_no_version_check GOTO version_done
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt" GOTO version_start

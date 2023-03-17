@@ -54,16 +54,17 @@ START "" update.cmd "3" & EXIT
 :update_finish
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS & ECHO. & ECHO Installing update...
-DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1 || GOTO update_failed
-DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\*" || GOTO update_failed
+DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\*.cmd" > NUL 2>&1 || GOTO update_failed
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
 
-RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1 || GOTO update_failed
+RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1
+DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1
 ECHO %CLOUDCOINMANAGERPORTABLE_new_version% %DATE:~-10% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version%
 CLS & ECHO. & ECHO Updated to version %CLOUDCOINMANAGERPORTABLE_new_version% successfully. & ECHO. & PAUSE & EXIT
 
 :update_failed
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Failed
 ECHO.
 ECHO Update failed!
 ECHO.

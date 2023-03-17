@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.7.1
+- Old files in the main folder will now only be removed when updating if they are cmd files
+
 2.7
 - Updating will now remove old files (this will not affect the Settings folder)
 
