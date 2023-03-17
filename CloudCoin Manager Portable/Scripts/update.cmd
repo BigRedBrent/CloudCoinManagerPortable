@@ -46,7 +46,8 @@ CALL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager 
 SET CLOUDCOINMANAGERPORTABLE_new_version=%CLOUDCOINMANAGERPORTABLE_version%
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS & ECHO. & ECHO Installing update...
-RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts" > NUL 2>&1 || GOTO update_failed
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp" > NUL 2>&1 || GOTO update_failed
+MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp\" > NUL 2>&1 || GOTO update_failed
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\Scripts" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts"
 START "" update.cmd "3" & EXIT
@@ -54,11 +55,12 @@ START "" update.cmd "3" & EXIT
 :update_finish
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS & ECHO. & ECHO Installing update...
-DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\*.cmd" > NUL 2>&1 || GOTO update_failed
+MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\*.cmd" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp\" > NUL 2>&1 || GOTO update_failed
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
 
-RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1
 DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1
+RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1
+RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp" > NUL 2>&1
 ECHO %CLOUDCOINMANAGERPORTABLE_new_version% %DATE:~-10% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version%
 CLS & ECHO. & ECHO Updated to version %CLOUDCOINMANAGERPORTABLE_new_version% successfully. & ECHO. & PAUSE & EXIT

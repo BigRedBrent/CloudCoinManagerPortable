@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.7.2
+- Update will now move replaced files first, and then delete them after they're replaced
+
 2.7.1
 - Old files in the main folder will now only be removed when updating if they are cmd files
 
