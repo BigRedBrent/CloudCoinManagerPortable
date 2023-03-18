@@ -26,4 +26,5 @@ ECHO. & ECHO. & ECHO.
 ECHO Failed!
 ECHO.
 DEL "*.tmp" >NUL 2>&1
-PAUSE & EXIT
+PAUSE
+EXIT
