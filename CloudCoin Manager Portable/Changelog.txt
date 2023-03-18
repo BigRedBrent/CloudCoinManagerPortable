@@ -1,7 +1,7 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
-2.8.1
+2.8.2
 - Will now remove old start files
 
 2.8
