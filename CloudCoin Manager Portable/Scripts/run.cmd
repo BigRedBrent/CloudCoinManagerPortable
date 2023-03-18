@@ -1,7 +1,6 @@
 IF "%~1" == "" EXIT
 CLS
-IF EXIST "..\Start CloudCoin Manager Portable.cmd" FOR %%G IN ("..\*.cmd") DO IF /I NOT "%%~nG" == "Start CloudCoin Manager Portable" (DEL "%%~fG" >NUL 2>&1 & SET CLOUDCOINMANAGERPORTABLE_deleted_cmd=1)
-IF DEFINED CLOUDCOINMANAGERPORTABLE_deleted_cmd EXIT
+IF EXIST "..\Start CloudCoin Manager Portable.cmd" FOR %%G IN ("..\*.cmd") DO IF /I NOT "%%~nG" == "Start CloudCoin Manager Portable" (DEL "%%~fG" >NUL 2>&1 & SET CLOUDCOINMANAGERPORTABLE_home_dir=)
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir%" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_client_name_ext=%~nx1
 TASKLIST /FI "imagename eq %CLOUDCOINMANAGERPORTABLE_client_name_ext%" | FIND "%CLOUDCOINMANAGERPORTABLE_client_name_ext%" > NUL && CALL error.cmd "CloudCoin Manager is already running!" "4"
