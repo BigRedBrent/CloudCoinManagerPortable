@@ -11,6 +11,9 @@ DEL "*.tmp" >NUL 2>&1
 COPY /Y "CloudCoin Manager Portable\Help.txt" "README.tmp" || GOTO build_fail
 FC /B "CloudCoin Manager Portable\Help.txt" "README.tmp" || GOTO build_fail
 MOVE /Y "README.tmp" "README.md" >NUL 2>&1 || GOTO build_fail
+COPY /Y "CloudCoin Manager Portable\Changelog.txt" "CHANGELOG.tmp" || GOTO build_fail
+FC /B "CloudCoin Manager Portable\Changelog.txt" "CHANGELOG.tmp" || GOTO build_fail
+MOVE /Y "CHANGELOG.tmp" "CHANGELOG.md" >NUL 2>&1 || GOTO build_fail
 CALL "CloudCoin Manager Portable\Start CloudCoin Manager Portable.cmd" "1"
 IF "%CLOUDCOINMANAGERPORTABLE_version%" == "" GOTO build_fail
 ECHO %CLOUDCOINMANAGERPORTABLE_version%> version.tmp
