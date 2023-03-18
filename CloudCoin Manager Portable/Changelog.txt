@@ -1,6 +1,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.8
+- Will now ask to replace CloudCoin Manager in the portable folder if a newer version is installed on the computer
+
 2.7.2
 - Update will now move replaced files first, and then delete them after they're replaced
 

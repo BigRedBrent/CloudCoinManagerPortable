@@ -23,8 +23,8 @@ If existing settings are found, to start with a new blank copy of settings, sele
 If you want to remove any existing settings files that have been successfully coped, you will be responsible to find and delete them yourself.
 Existing settings files are located in a directory that looks like this: "C:\Users\{USER}\cloudcoin_manager"
 
-If the CloudCoin Manager is copied to this folder, it will be found in the "CloudCoin Manager" folder.
-To update to a newer installed version, simply delete this "CloudCoin Manager" folder and run this script again,
-or select no when prompted to copy the CloudCoin Manager, to use the locally installed version instead.
+To use the locally installed CloudCoin Manager, select no when prompted to copy the CloudCoin Manager.
+To copy the CloudCoin Manager to the portable folder after originally selecting not to,
+simply delete the "CloudCoin Manager" folder and run this script again.
 
 After the CloudCoin Manager is installed, run: "Start CloudCoin Manager Portable.cmd"

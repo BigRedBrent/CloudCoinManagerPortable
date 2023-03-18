@@ -21,22 +21,48 @@ IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager" IF
     DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie*" >NUL 2>&1
 )
 
-FOR %%f IN (%*) DO IF EXIST "%%~f" (
-    SET CLOUDCOINMANAGERPORTABLE_manager=%%~f
-    SET CLOUDCOINMANAGERPORTABLE_manager_dir=%%~dpf
+SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%~dp1
+IF "%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~0,-1%
+
+FOR %%G IN (%*) DO IF EXIST "%%~fG" (
+    SET CLOUDCOINMANAGERPORTABLE_manager=%%~fG
+    SET CLOUDCOINMANAGERPORTABLE_manager_dir=%%~dpG
     GOTO manager_found
 )
 CALL error.cmd "CloudCoin Manager not installed!"
 :manager_found
-SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%~dp1
-IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" GOTO no_copy_manager
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%\" GOTO no_copy_manager
 IF "%CLOUDCOINMANAGERPORTABLE_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_manager_dir=%CLOUDCOINMANAGERPORTABLE_manager_dir:~0,-1%
-IF "%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%CLOUDCOINMANAGERPORTABLE_local_manager_dir:~0,-1%
 CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" "Copy CloudCoin Manager to portable folder [Y/N]?" "Copying manager files..." "Verifying copied manager files..." "Failed to copy manager files!"
 IF %ERRORLEVEL% EQU 1 EXIT
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 CLS
 :no_copy_manager
+
+DEL "%~f1.tmp" >NUL 2>&1
+IF NOT EXIST "%~f1" GOTO no_update_manager
+FOR %%G IN (%*) DO IF NOT "%%~tG" == "%~t1" IF EXIST "%%~fG" (
+    SET CLOUDCOINMANAGERPORTABLE_new_manager=%%~fG
+    SET CLOUDCOINMANAGERPORTABLE_new_manager_dir=%%~dpG
+    GOTO new_manager_found
+)
+GOTO no_update_manager
+:new_manager_found
+COPY /Y "%CLOUDCOINMANAGERPORTABLE_new_manager%" "%~f1.tmp" >NUL 2>&1
+CD /D "%~dp1"
+FOR /F %%G IN ('DIR /B /O:-D "%~nx1" "%~nx1.tmp"') DO (
+    DEL "%~f1.tmp" >NUL 2>&1
+    CD /D "%~dp0"
+    IF "%%~nxG" == "%~nx1" GOTO no_update_manager
+    GOTO manager_update_found
+)
+:manager_update_found
+IF "%CLOUDCOINMANAGERPORTABLE_new_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_new_manager_dir=%CLOUDCOINMANAGERPORTABLE_new_manager_dir:~0,-1%
+CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_new_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" "Replace CloudCoin Manager in portable folder with newer installed version [Y/N]?" "Copying manager files..." "Verifying copied manager files..." "Failed to copy manager files!"
+IF %ERRORLEVEL% EQU 1 EXIT
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
+CLS
+:no_update_manager
 
 SET CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir=%USERPROFILE%\cloudcoin_manager
 SET CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager
