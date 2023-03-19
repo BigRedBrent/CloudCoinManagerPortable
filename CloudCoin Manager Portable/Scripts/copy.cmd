@@ -6,6 +6,7 @@ SET CLOUDCOINMANAGERPORTABLE_copy_debug=
 
 IF "%~3" == "yes" GOTO copy_skip_choice
 :copy_redo_choice
+CLS
 ECHO.
 CHOICE /C 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ /M "%~3" /N
 IF %ERRORLEVEL% == 24 GOTO copy_no_choice
@@ -13,7 +14,7 @@ IF NOT %ERRORLEVEL% == 35 GOTO copy_redo_choice
 :copy_skip_choice
 
 CLS & ECHO. & ECHO %~4
-RMDIR /S /Q "%~f2.tmp" >NUL 2>&1
+RMDIR /S /Q "%~f2.tmp" > NUL 2>&1
 IF EXIST "%~f2.tmp\" GOTO copy_failed
 XCOPY "%~f1\" "%~f2.tmp\" /H /E /G /Q /V /Y /R /K > NUL || GOTO copy_failed
 
@@ -56,7 +57,7 @@ EXIT /B 2
 
 :copy_failed
 ECHO. & ECHO. & ECHO. & ECHO %~6 & ECHO.
-IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug RMDIR /S /Q "%~f2.tmp" >NUL 2>&1
+IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug RMDIR /S /Q "%~f2.tmp" > NUL 2>&1
 PAUSE
 EXIT /B 1
 
@@ -65,7 +66,7 @@ SET CLOUDCOINMANAGERPORTABLE_copy_relative_path=%~f1
 CALL SET CLOUDCOINMANAGERPORTABLE_copy_relative_path=%%CLOUDCOINMANAGERPORTABLE_copy_relative_path:~%CLOUDCOINMANAGERPORTABLE_copy_string_length%%%
 IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_copy_debug CLS & ECHO. & ECHO %CLOUDCOINMANAGERPORTABLE_copy_verify_msg%
 ECHO. & ECHO "%CLOUDCOINMANAGERPORTABLE_copy_relative_path_home%%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3"
-FC /B "%~f1\%~3" "%~f2.tmp%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3" >NUL 2>&1 && EXIT /B 0
+FC /B "%~f1\%~3" "%~f2.tmp%CLOUDCOINMANAGERPORTABLE_copy_relative_path%\%~3" > NUL 2>&1 && EXIT /B 0
 IF %ERRORLEVEL% EQU 1 EXIT /B 1
 IF NOT "%~3" == "*" EXIT /B 1
 FOR /F "TOKENS=*" %%G IN ('DIR /B /A:-D "%~f1\*"') DO CALL :copy_verify "%~f1" "%~f2" "%%~nxG" || EXIT /B 1

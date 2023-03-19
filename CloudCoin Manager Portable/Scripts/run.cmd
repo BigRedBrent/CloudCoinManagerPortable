@@ -1,6 +1,6 @@
 IF "%~1" == "" EXIT
 CLS
-IF EXIST "..\Start CloudCoin Manager Portable.cmd" FOR %%G IN ("..\*.cmd") DO IF /I NOT "%%~nG" == "Start CloudCoin Manager Portable" (DEL "%%~fG" >NUL 2>&1 & SET CLOUDCOINMANAGERPORTABLE_home_dir=)
+IF EXIST "..\Start CloudCoin Manager Portable.cmd" FOR %%G IN ("..\*.cmd") DO IF /I NOT "%%~nG" == "Start CloudCoin Manager Portable" (DEL "%%~fG" > NUL 2>&1 & SET CLOUDCOINMANAGERPORTABLE_home_dir=)
 IF "%CLOUDCOINMANAGERPORTABLE_home_dir%" == "" EXIT
 SET CLOUDCOINMANAGERPORTABLE_client_name_ext=%~nx1
 TASKLIST /FI "imagename eq %CLOUDCOINMANAGERPORTABLE_client_name_ext%" | FIND "%CLOUDCOINMANAGERPORTABLE_client_name_ext%" > NUL && CALL error.cmd "CloudCoin Manager is already running!" "4"
@@ -16,10 +16,10 @@ IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\cloudcoin_ma
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" (
     IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
     MOVE "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\" >NUL || EXIT
-    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox" >NUL 2>&1
-    RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie-Plus" >NUL 2>&1
-    DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\Sandboxie*" >NUL 2>&1
-    DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie*" >NUL 2>&1
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox" > NUL 2>&1
+    RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie-Plus" > NUL 2>&1
+    DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\Sandboxie*" > NUL 2>&1
+    DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie*" > NUL 2>&1
 )
 
 SET CLOUDCOINMANAGERPORTABLE_local_manager_dir=%~dp1
@@ -40,7 +40,7 @@ TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 CLS
 :no_copy_manager
 
-DEL "%~f1.tmp" >NUL 2>&1
+DEL "%~f1.tmp" > NUL 2>&1
 IF NOT EXIST "%~f1" GOTO no_update_manager
 FOR %%G IN (%*) DO IF NOT "%%~tG" == "%~t1" IF EXIST "%%~fG" (
     SET CLOUDCOINMANAGERPORTABLE_new_manager=%%~fG
@@ -49,10 +49,10 @@ FOR %%G IN (%*) DO IF NOT "%%~tG" == "%~t1" IF EXIST "%%~fG" (
 )
 GOTO no_update_manager
 :new_manager_found
-COPY /Y "%CLOUDCOINMANAGERPORTABLE_new_manager%" "%~f1.tmp" >NUL 2>&1
+COPY /Y "%CLOUDCOINMANAGERPORTABLE_new_manager%" "%~f1.tmp" > NUL 2>&1
 CD /D "%~dp1"
 FOR /F %%G IN ('DIR /B /O:-D "%~nx1" "%~nx1.tmp"') DO (
-    DEL "%~f1.tmp" >NUL 2>&1
+    DEL "%~f1.tmp" > NUL 2>&1
     CD /D "%~dp0"
     IF "%%~nxG" == "%~nx1" GOTO no_update_manager
     GOTO manager_update_found
@@ -94,6 +94,22 @@ IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
     CALL custom.cmd "1"
     CD /D "%~dp0"
 )
+
+CLS
+SET CLOUDCOINMANAGERPORTABLE_passkey_found=
+FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\*.skyvault.cc.png") DO (
+    SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
+    ECHO. & ECHO Passkey detected: & ECHO     "%%~fG"
+    IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG" (
+        ECHO Passkey already found at: & ECHO     "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG"
+    ) ELSE (
+        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        MOVE /Y "%%~fG" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\" > NUL || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        ECHO Successfully moved passkey to: & ECHO     "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG"
+    )
+)
+IF DEFINED CLOUDCOINMANAGERPORTABLE_passkey_found ECHO. & ECHO. & PAUSE
 
 START "" wait.vbs "%CLOUDCOINMANAGERPORTABLE_manager%" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
 EXIT

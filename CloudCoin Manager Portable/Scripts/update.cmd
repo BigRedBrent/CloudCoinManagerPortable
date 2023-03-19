@@ -55,7 +55,7 @@ START "" update.cmd "3" & EXIT
 :update_finish
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS & ECHO. & ECHO Installing update...
-MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\*.cmd" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp\" > NUL 2>&1 || GOTO update_failed
+FOR %%G IN ("vbs","cmd") DO MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\*.%%~G" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp\" > NUL 2>&1
 MOVE /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoin Manager Portable\*" "%CLOUDCOINMANAGERPORTABLE_home_dir%\" > NUL 2>&1 || GOTO update_failed
 
 DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1
