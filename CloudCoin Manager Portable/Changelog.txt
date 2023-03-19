@@ -1,7 +1,11 @@
+
 Release Notes: CloudCoin Manager Portable
 =============
 
-2.9.2
+2.9.3
+- Will now open Changelog.txt in notepad after updating
+
+2.9
 - Will now move SkyVault passkey ".skyvault.cc.png" files that are placed into this portable folder, to the correct portable settings file location
 
 2.8.2
