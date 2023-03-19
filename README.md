@@ -12,7 +12,7 @@ ___
 
 This script only works with the windows version of CloudCoin Manager.
 
-Download the latest version of the CloudCoin Manager from here:  
+Download and install the latest version of the CloudCoin Manager from here:  
 https://cloudcoin.global/wallet
 
 This script will attempt to find existing CloudCoin Manager files, and copy them into this portable folder.  
