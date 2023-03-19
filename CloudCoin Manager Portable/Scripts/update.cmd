@@ -62,8 +62,8 @@ DEL "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp.cmd" > NUL 2>&1
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\replaced.tmp" > NUL 2>&1
 ECHO %CLOUDCOINMANAGERPORTABLE_new_version% %DATE:~-10% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
-TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version%
-CLS & ECHO. & ECHO Updated to version %CLOUDCOINMANAGERPORTABLE_new_version% successfully. & ECHO. & PAUSE & EXIT
+START "" notepad.exe "%CLOUDCOINMANAGERPORTABLE_home_dir%\Changelog.txt"
+EXIT
 
 :update_failed
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Failed
