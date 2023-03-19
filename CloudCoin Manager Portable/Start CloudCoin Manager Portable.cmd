@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SET CLOUDCOINMANAGERPORTABLE_version=2.8.2
+SET CLOUDCOINMANAGERPORTABLE_version=2.8.3 Beta
 SET CLOUDCOINMANAGERPORTABLE_name=CloudCoin Manager Portable
 SET CLOUDCOINMANAGERPORTABLE_no_version_check=
 
@@ -15,7 +15,7 @@ SET CLOUDCOINMANAGERPORTABLE_manager2=%ProgramFiles(x86)%\CloudCoin Consortium\C
 SET CLOUDCOINMANAGERPORTABLE_manager3=%ProgramFiles%\CloudCoin Consortium\CloudCoin Manager\cloudcoin_manager\cloudcoin_manager.exe
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom_start.cmd" (
     CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
-    CALL custom_start.cmd "%~0"
+    CALL custom_start.cmd "1"
 )
 CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts"
 CALL run.cmd "%CLOUDCOINMANAGERPORTABLE_manager1%" "%CLOUDCOINMANAGERPORTABLE_manager2%" "%CLOUDCOINMANAGERPORTABLE_manager3%"

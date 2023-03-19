@@ -91,7 +91,7 @@ IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" MKDIR "
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
     CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
-    CALL custom.cmd "%~0"
+    CALL custom.cmd "1"
     CD /D "%~dp0"
 )
 

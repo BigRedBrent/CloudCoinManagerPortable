@@ -13,6 +13,6 @@ RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\EBWebView\Def
 RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\EBWebView\GrShaderCache" >NUL 2>&1
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom_end.cmd" (
     CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
-    CALL custom_end.cmd "%~0" & EXIT
+    CALL custom_end.cmd "1" & EXIT
 )
 EXIT
