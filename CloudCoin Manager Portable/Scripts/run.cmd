@@ -100,12 +100,12 @@ SET CLOUDCOINMANAGERPORTABLE_passkey_found=
 FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\*.skyvault.cc.png") DO (
     SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
     IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" (
-        ECHO. & ECHO Passkey already found at: & ECHO "Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
+        ECHO. & ECHO Passkey already found at: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
     ) ELSE (
         IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
         IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
         MOVE /Y "%%~fG" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" > NUL || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
-        ECHO. & ECHO Successfully moved passkey to: & ECHO "Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
+        ECHO. & ECHO Successfully moved passkey to: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
     )
 )
 IF DEFINED CLOUDCOINMANAGERPORTABLE_passkey_found ECHO. & ECHO. & PAUSE

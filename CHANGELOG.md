@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.9.5
+- Updated the Help.txt file to include information on how to import SkyVault passkey png files
+
 2.9.4
 - Will now open Changelog.txt in notepad after updating
 
