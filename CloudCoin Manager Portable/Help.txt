@@ -20,7 +20,7 @@ If copied, the original files will not be altered in any way.
 
 You may find the settings and coin files in the "Settings" folder.  
 To start with a new blank copy of settings, select no when prompted to copy existing settings.  
-To remove any original settings files that have been copied, you will have to find and delete them yourself.  
+To remove any existing settings files that have been copied, you will have to find and delete them yourself.  
 Existing settings files are located in a directory that looks like this: "C:\Users\USER\cloudcoin_manager"
 
 To use the locally installed CloudCoin Manager, select no when prompted to copy the CloudCoin Manager.  
