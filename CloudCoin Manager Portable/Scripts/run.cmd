@@ -98,10 +98,15 @@ IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
 CLS
 SET CLOUDCOINMANAGERPORTABLE_passkey_found=
 FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\*.skyvault.cc.png") DO (
-    SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
     IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" (
-        ECHO. & ECHO Passkey already found at: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
+        IF /I NOT "%%~fG" == "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" (
+            SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
+            ECHO.
+            FC /B "%%~fG" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" > NUL 2>&1 && DEL "%%~fG" > NUL 2>&1 && ECHO Duplicate passkey deleted.
+            ECHO Passkey already found at: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
+        )
     ) ELSE (
+        SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
         IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
         IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
         MOVE /Y "%%~fG" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" > NUL || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)

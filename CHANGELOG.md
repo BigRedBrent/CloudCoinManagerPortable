@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.9.6
+- Will now delete passkey when importing, if an identical duplicate already exists
+
 2.9.5
 - Updated the Help.txt file to include information on how to import SkyVault passkey png files
 
