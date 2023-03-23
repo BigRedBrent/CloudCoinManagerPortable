@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.9.7
+- Will no longer delete cache on exit
+
 2.9.6
 - Will now delete passkey when importing, if an identical duplicate already exists
 
