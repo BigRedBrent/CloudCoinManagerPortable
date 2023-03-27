@@ -32,8 +32,8 @@ FOR %%G IN (%*) DO IF EXIST "%%~fG" (
 )
 CALL error.cmd "CloudCoin Manager not installed!"
 :manager_found
-IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%\" GOTO no_copy_manager
 IF "%CLOUDCOINMANAGERPORTABLE_manager_dir:~-1%" == "\" SET CLOUDCOINMANAGERPORTABLE_manager_dir=%CLOUDCOINMANAGERPORTABLE_manager_dir:~0,-1%
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%\" GOTO no_copy_manager
 CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_local_manager_dir%" "Copy CloudCoin Manager to portable folder [Y/N]?" "Copying manager files..." "Verifying copied manager files..." "Failed to copy manager files!"
 IF %ERRORLEVEL% EQU 1 EXIT
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
