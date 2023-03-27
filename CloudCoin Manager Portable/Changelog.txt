@@ -2,7 +2,7 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
-2.9.8
+2.9.9
 - Will no longer use vbs script if not needed
 
 2.9.7
