@@ -8,15 +8,15 @@ CALL version.cmd "1"
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 CLS
 
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\cloudcoin_manager" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\cloudcoin_manager" (
-    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager"
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\cloudcoin_manager\" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\cloudcoin_manager\" (
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager"
     MOVE "%CLOUDCOINMANAGERPORTABLE_home_dir%\cloudcoin_manager" "%CLOUDCOINMANAGERPORTABLE_home_dir%\CloudCoin Manager\" >NUL || EXIT
 )
 
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" (
-    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\" IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager\" (
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
     MOVE "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\" >NUL || EXIT
-    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager" RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox" > NUL 2>&1
+    IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox\DefaultBox\user\current\cloudcoin_manager\" RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandbox" > NUL 2>&1
     RMDIR /S /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie-Plus" > NUL 2>&1
     DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\Sandboxie*" > NUL 2>&1
     DEL /Q "%CLOUDCOINMANAGERPORTABLE_home_dir%\Sandboxie*" > NUL 2>&1
@@ -69,8 +69,8 @@ SET CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir=%USERPROFILE%\cloudcoin_ma
 SET CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager
 SET CLOUDCOINMANAGERPORTABLE_appdata_settings_dir=%APPDATA%\%CLOUDCOINMANAGERPORTABLE_client_name_ext%
 SET CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming\%CLOUDCOINMANAGERPORTABLE_client_name_ext%
-IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" GOTO copy_settings_exist
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%" GOTO no_copy_settings
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\" GOTO copy_settings_exist
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%\" GOTO no_copy_settings
 CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_userprofile_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" "Copy detected CloudCoin settings and coins to portable folder [Y/N]?" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
 SET CLOUDCOINMANAGERPORTABLE_copy_error=%ERRORLEVEL%
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
@@ -79,15 +79,15 @@ IF %CLOUDCOINMANAGERPORTABLE_copy_error% EQU 2 GOTO no_copy_settings
 IF %CLOUDCOINMANAGERPORTABLE_copy_error% NEQ 0 EXIT
 :copy_settings_exist
 
-IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" GOTO no_copy_settings
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%" GOTO no_copy_settings
+IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\" GOTO no_copy_settings
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%\" GOTO no_copy_settings
 CALL copy.cmd "%CLOUDCOINMANAGERPORTABLE_appdata_settings_dir%" "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" "yes" "Copying settings files..." "Verifying copied settings files..." "Failed to copy settings files!"
 IF %ERRORLEVEL% NEQ 0 EXIT
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 CLS
 :no_copy_settings
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" || EXIT
-IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" || EXIT
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" || EXIT
+IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" || EXIT
 
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
