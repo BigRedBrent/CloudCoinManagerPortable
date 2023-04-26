@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.9.15
+- Changed Help.txt
+
 2.9.14
 - Will no longer wait for the manager to close if not needed
 
