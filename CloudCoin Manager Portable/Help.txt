@@ -35,4 +35,8 @@ it will move the png files to the correct portable settings location for you.
 This is for those who have downloaded passkeys after creating SkyVault addresses from the SkyVault.cc website,  
 and would like to easily import them to be used with CloudCoin Manager Portable.
 
+This script will reset settings with Max Notes set to 50 every time you start the manager.
+This will allow you to set the Max Notes setting to the highest setting to run the Verify Coin Authenticity operation,
+and then restart the manager to reset the settings and allow the automated Fix Fractured Coins operation to work.
+
 After the CloudCoin Manager is installed, run: "Start CloudCoin Manager Portable.cmd"

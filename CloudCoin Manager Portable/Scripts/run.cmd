@@ -89,6 +89,10 @@ CLS
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%" || EXIT
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" || EXIT
 
+IF DEFINED CLOUDCOINMANAGERPORTABLE_no_reset_settings_on_start GOTO no_reset_settings_on_start
+FC /B "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\config.toml" > NUL 2>&1 || COPY /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\config.toml" || EXIT
+:no_reset_settings_on_start
+
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
     CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"

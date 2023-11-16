@@ -46,10 +46,8 @@ CD /D "%~dp0"
 CALL :version_done
 
 IF "%CLOUDCOINMANAGERPORTABLE_new_version%" == "" GOTO version_done
-IF NOT "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_version%" GOTO version_next
+IF "%CLOUDCOINMANAGERPORTABLE_version%" == "%CLOUDCOINMANAGERPORTABLE_new_version%" GOTO version_done
 ECHO %CLOUDCOINMANAGERPORTABLE_version% %DATE:~-10% %TIME: =0%> "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\version.txt"
-GOTO version_done
-:version_next
 
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_version%
 :version_redo_choice

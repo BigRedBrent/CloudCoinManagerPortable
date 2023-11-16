@@ -1,0 +1,17 @@
+title = "Coin Manager"
+help = "support@cloudcoin.global"
+
+[main]
+  http_timeout = 3
+  domain = "73.66.181.49"
+  max_notes_to_send = 50
+  export_background = "#02203D"
+  brand_color = "#7FA8FF"
+  guardians = ["raida-guardian-tx.us", "g2.cloudcoin.asia", "guardian.ladyjade.cc", "watchdog.guardwatch.cc", "g5.raida-guardian.us", "goodguardian.xyz", "g7.ccraida.com", "raidaguardian.nz", "g9.guardian9.net", "g10.guardian25.com", "g11.raidacash.com", "g12.aeroflightcb300.com", "g13.stomarket.co", "guardian14.gsxcover.com", "guardian.keilagd.cc", "g16.guardianstl.us", "raida-guardian.net", "g18.raidaguardian.al", "g19.paolobui.com", "g20.cloudcoins.asia", "guardian21.guardian.al", "rg.encrypting.us", "g23.cuvar.net", "guardian24.rsxcover.com", "g25.mattyd.click", "g26.cloudcoinconsortium.art"]
+  private_raidas = []
+  protocol = "auto"
+  default_timeout_mult = 100
+  echo_timeout_mult = 100
+  change_server_sn = 2
+  encryption_disabled = false
+  use_local_raidas = false
