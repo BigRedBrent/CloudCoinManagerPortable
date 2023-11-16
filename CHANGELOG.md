@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.10.1
+- Small change to version checking
+
 2.10
 - Will now reset settings with Max Notes set to 50 every time you start the manager
   - This will allow you to set the Max Notes setting to the highest setting to run the Verify Coin Authenticity operation,
