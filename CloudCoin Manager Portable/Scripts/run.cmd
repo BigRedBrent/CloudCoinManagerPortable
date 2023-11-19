@@ -90,7 +90,7 @@ IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\" MKDIR 
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_appdata_settings_dir%" || EXIT
 
 IF DEFINED CLOUDCOINMANAGERPORTABLE_no_reset_settings_on_start GOTO no_reset_settings_on_start
-FC /B "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\config.toml" > NUL 2>&1 || COPY /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\config.toml" || EXIT
+FC /B "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\config.toml" > NUL 2>&1 || COPY /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\config.toml" || EXIT
 :no_reset_settings_on_start
 
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
@@ -102,19 +102,19 @@ IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
 
 CLS
 SET CLOUDCOINMANAGERPORTABLE_passkey_found=
-FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\*.skyvault.cc.png") DO (
-    IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" (
-        IF /I NOT "%%~fG" == "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" (
+FOR %%G IN ("%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\*.skyvault.cc.png","%CLOUDCOINMANAGERPORTABLE_home_dir%\*.skyvault.cc.png") DO (
+    IF EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG" (
+        IF /I NOT "%%~fG" == "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG" (
             SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
             ECHO.
-            FC /B "%%~fG" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG" > NUL 2>&1 && DEL "%%~fG" > NUL 2>&1 && ECHO Duplicate passkey deleted.
+            FC /B "%%~fG" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\%%~nxG" > NUL 2>&1 && DEL "%%~fG" > NUL 2>&1 && ECHO Duplicate passkey deleted.
             ECHO Passkey already found at: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
         )
     ) ELSE (
         SET CLOUDCOINMANAGERPORTABLE_passkey_found=1
-        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
-        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
-        MOVE /Y "%%~fG" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\cloudcoin_manager\SkyWallets\%%~nG\" > NUL || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\" MKDIR "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG" || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
+        MOVE /Y "%%~fG" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\SkyWallets\%%~nG\" > NUL || (ECHO. & ECHO There was an error moving passkey from: & ECHO "%%~fG" & ECHO. & ECHO. & PAUSE & EXIT)
         ECHO. & ECHO Successfully moved passkey to: & ECHO "\Settings\cloudcoin_manager\SkyWallets\%%~nG\%%~nxG"
     )
 )
