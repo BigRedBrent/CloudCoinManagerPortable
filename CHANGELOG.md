@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.11
+- Will force refresh of server addresses on startup
+
 2.10.1
 - Small change to version checking
 
