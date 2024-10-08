@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.11.1
+- Force refresh of server addresses on startup a little sooner in the script
+
 2.11
 - Will force refresh of server addresses on startup
 

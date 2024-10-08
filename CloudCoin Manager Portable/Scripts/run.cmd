@@ -93,6 +93,8 @@ IF DEFINED CLOUDCOINMANAGERPORTABLE_no_reset_settings_on_start GOTO no_reset_set
 FC /B "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\config.toml" > NUL 2>&1 || COPY /Y "%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts\config.toml" "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\config.toml" || EXIT
 :no_reset_settings_on_start
 
+IF NOT DEFINED CLOUDCOINMANAGERPORTABLE_no_guardian_refresh DEL "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\.coin.guardians" > NUL 2>&1
+
 SET APPDATA=%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\AppData\Roaming
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom.cmd" (
     CD /D "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings"
@@ -123,6 +125,5 @@ IF DEFINED CLOUDCOINMANAGERPORTABLE_passkey_found ECHO. & ECHO. & PAUSE
 SET CLOUDCOINMANAGERPORTABLE_scripts_dir=
 IF EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\custom_end.cmd" SET CLOUDCOINMANAGERPORTABLE_scripts_dir=%CLOUDCOINMANAGERPORTABLE_home_dir%\Scripts
 
-DEL "%CLOUDCOINMANAGERPORTABLE_local_userprofile_settings_dir%\.coin.guardians" > NUL 2>&1
 START "" wait.vbs "%CLOUDCOINMANAGERPORTABLE_manager_dir%" "%CLOUDCOINMANAGERPORTABLE_manager%" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings" "%CLOUDCOINMANAGERPORTABLE_scripts_dir%"
 EXIT
