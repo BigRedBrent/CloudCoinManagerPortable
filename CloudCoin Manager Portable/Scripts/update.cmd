@@ -3,29 +3,14 @@ CLS
 IF "%~1" == "2" GOTO update_install
 IF "%~1" == "3" GOTO update_finish
 IF NOT "%~1" == "1" EXIT
-TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 
-ECHO. & ECHO Downloading update...
-FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :update_remove_job "%%G"
-BITSADMIN /CANCEL "%CLOUDCOINMANAGERPORTABLE_name% Download Update" > NUL 2>&1
-PING github.com -n 1 -w 5000 > NUL 2>&1 || GOTO update_failed
-BITSADMIN /CREATE /DOWNLOAD "%CLOUDCOINMANAGERPORTABLE_name% Download Update" > NUL 2>&1
-BITSADMIN /SETMAXDOWNLOADTIME "%CLOUDCOINMANAGERPORTABLE_name% Download Update" 20 > NUL 2>&1
-BITSADMIN /SETNOPROGRESSTIMEOUT "%CLOUDCOINMANAGERPORTABLE_name% Download Update" 5 > NUL 2>&1
-BITSADMIN /SETMINRETRYDELAY "%CLOUDCOINMANAGERPORTABLE_name% Download Update" 0 > NUL 2>&1
-BITSADMIN /SETNOTIFYCMDLINE "%CLOUDCOINMANAGERPORTABLE_name% Download Update" NULL NULL > NUL 2>&1
-TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Downloading Update
-MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1 || GOTO update_failed
-BITSADMIN /TRANSFER "%CLOUDCOINMANAGERPORTABLE_name% Download Update" /DOWNLOAD /DYNAMIC "https://github.com/BigRedBrent/CloudCoinManagerPortable/raw/main/CloudCoinManagerPortable.zip" "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoinManagerPortable.zip"
 TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
-BITSADMIN /CANCEL "%CLOUDCOINMANAGERPORTABLE_name% Download Update" > NUL 2>&1
-FOR /F "tokens=*" %%G IN ('BITSADMIN /LIST 1^>NUL') DO CALL :update_remove_job "%%G"
-GOTO update_skip_remove_job
-:update_remove_job
-SET CLOUDCOINMANAGERPORTABLE_update_guid=%~1
-ECHO %~1 | FIND "%CLOUDCOINMANAGERPORTABLE_name% Download Update" > NUL 2>&1 && BITSADMIN /CANCEL %CLOUDCOINMANAGERPORTABLE_update_guid:~0,38% > NUL 2>&1
-EXIT /B
-:update_skip_remove_job
+ECHO. & ECHO Downloading update...
+WHERE powershell >NUL 2>&1 || GOTO update_failed
+MKDIR "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp" > NUL 2>&1 || GOTO update_failed
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Downloading Update
+powershell -Command "$ErrorActionPreference = 'Stop'; try { Invoke-WebRequest -Uri 'https://github.com/BigRedBrent/CloudCoinManagerPortable/raw/main/CloudCoinManagerPortable.zip' -TimeoutSec 10 -OutFile '%CLOUDCOINMANAGERPORTABLE_home_dir%\\Settings\\update.tmp\\CloudCoinManagerPortable.zip' } catch { exit 1 }" || GOTO update_failed
+TITLE %CLOUDCOINMANAGERPORTABLE_name% %CLOUDCOINMANAGERPORTABLE_new_version% - Update
 CLS
 IF NOT EXIST "%CLOUDCOINMANAGERPORTABLE_home_dir%\Settings\update.tmp\CloudCoinManagerPortable.zip" GOTO update_failed
 

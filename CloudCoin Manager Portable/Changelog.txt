@@ -2,6 +2,9 @@
 Release Notes: CloudCoin Manager Portable
 =============
 
+2.12
+- Updated to use a more reliable downloader for updates
+
 2.11.1
 - Force refresh of server addresses on startup a little sooner in the script
 
